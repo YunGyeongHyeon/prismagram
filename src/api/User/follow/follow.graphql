@@ -1,0 +1,5 @@
+# @format
+
+type Mutation {
+  follow(id: String!): Boolean
+}

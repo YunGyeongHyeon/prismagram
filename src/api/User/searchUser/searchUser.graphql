@@ -1,0 +1,5 @@
+# @format
+
+type Query {
+  searchUser(term: String!): [User!]!
+}

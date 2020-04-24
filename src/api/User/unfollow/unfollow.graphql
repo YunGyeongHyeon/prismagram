@@ -1,0 +1,5 @@
+# @format
+
+type Mutation {
+  unfollow(id: String!): Boolean
+}

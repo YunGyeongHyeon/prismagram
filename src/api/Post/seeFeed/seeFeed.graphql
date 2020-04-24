@@ -1,0 +1,5 @@
+# @format
+
+type Query {
+  seeFeed: [Post!]!
+}

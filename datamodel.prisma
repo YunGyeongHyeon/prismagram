@@ -1,0 +1,73 @@
+type User {
+  id: ID! @id
+  avatar: String!
+  username: String!
+  email: String! @unique
+  firstName:String! @default(value: "")
+  lastName:String!
+  bio: String!
+  followers: [User!]! @relation(name: "FollowRelation") 
+  following: [User!]! @relation(name: "FollowRelation") 
+  posts : [Post!]! @relation(name:"PostOfUser", onDelete:CASCADE)
+  likes:[Like!]! @relation(name:"LikeOfUser", onDelete:CASCADE)
+  comments: [Comment!]! @relation(name:"CommentOfUser", onDelete:CASCADE)
+  rooms: [Room!]! 
+  loginSecret: String
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}
+
+type Post{
+  id: ID! @id
+  location: String
+  caption: String!
+  user: User! @relation(name:"PostOfUser")
+  files: [File!]! @relation(name: "FilesOfPost", onDelete:CASCADE)
+  likes:[Like!]! @relation(name:"LikeOfPost" onDelete: CASCADE) 
+  comments: [Comment!]! @relation(name:"CommentOfPost", onDelete: CASCADE)
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}
+
+type Like{
+  id: ID! @id
+  user: User! @relation(name:"LikeOfUser")
+  post: Post @relation(name:"LikeOfPost")
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}
+
+type Comment {
+  id: ID! @id
+  text : String!
+  user: User! @relation(name:"CommentOfUser")
+  post : Post @relation(name:"CommentOfPost")
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}
+
+type File {
+  id: ID! @id
+  url : String!
+  post : Post @relation(name:"FilesOfPost")
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}
+
+type Room {
+  id: ID! @id
+  participants: [User!]!
+  messages: [Message!]!
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}
+
+type Message {
+  id: ID! @id
+  text: String!
+  from: User! @relation(name: "From")
+  to: User! @relation(name: "To")
+  room: Room!
+  createAt: DateTime @createAt
+  updateAt: DateTime @updateAt
+}

@@ -1,0 +1,5 @@
+# @format
+
+type Query {
+  seeUser(id: String!): UserProfile!
+}
